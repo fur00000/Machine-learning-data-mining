@@ -1,0 +1,20 @@
+1. Effects of Regularization
+A. A regularization term will never decrease the in sample error, since a linear regression least squares problem is convex, so having no regularization term will automatically result in the lowest possible in-sample error. A regularization term will at best only match this error.
+It will not be guaranteed to decrease out-of-sample errors either, because it is only a bias towards lower weight values and thus smoother target functions. Since signals are typically smoother than noise, it will as a practical matter usually result in decreased out-of-sample erros, but this is not a mathematical guarantee.
+
+B. The tradeoff of having a sparser w is a poorer fit, so l0's fit might be too poor. In addition, it is not continuous unlike l1, which can make such optimization trickier.
+
+C. See plots
+
+D. Training errors were lower for the smaller training set, but validation errors were higher. This is to be expected since having a smaller training set will make it easier to fit to the training set, but harder to generalize into the testing set.
+
+E. For lambda = 10^-4 * 5^4 and above, both Ein and Eout were poorer, indicating underfitting. For lambda = 10^-4 * 5^3 and below, Ein and Eout were pretty much independent of lambda, indicating no overfitting.
+
+F. The norm of the weights, |w| increases with gradient step, which is to be expected as it starts near the center. It approaches a limit, which depends on lambda; the larger lambda, the smaller this limit is.
+
+G. I would pick lambda = 1.5625 (10^-4 * 5^-6) as it gives me the lowest E_out.
+
+2. Lasso vs ridge
+A, i., ii., iii. on paper
+B. i, ii. in plots. iii.: number of weights = 0 increases for lasso. For ridge, all weights decrease but they don't go to zero, so stays the same. 
+C. iii. w = (XT X + lambda*I)^-1 XT y. iv. No, because as lambda -> inf, (XT X + lambda*I) -> lambda*I, so (XT X + lambda*I)^-1 -> (lambda^-1)*I. Thus, w -> (lambda^-1) XT y. since wi != 0 when lambda = 0, we have wi = (xi.y)/(xi.xi). As w -> (lambda^-1) XT y, wi -> xi.y/lambda, so it deceases and approahces 0 but never actually reaches 0.
